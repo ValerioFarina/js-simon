@@ -42,7 +42,27 @@ $(document).ready(function() {
             userNumbers.push(userNumber);
         }
         console.log(userNumbers);
+        // predispongo un array vuoto
+        var result = [];
+
+        // per ogni numero inserito dall'utente, controllo se era uno dei numeri visualizzati in pagina
+        for (var i = 0; i < userNumbers.length; i++) {
+            // se il numero corrente è uno di quelli che era visualizzato in pagina, lo salvo nell'array result
+            if (numbers.includes(userNumbers[i])) {
+                result.push(userNumbers[i]);
+            }
+        }
+
+        // controllo se l'array result è vuoto
+        if (!result.length) {
+            $('.numbers').append('<h1>Non hai indovinato nessun numero</h1>');
+        } else {
+            // se non è vuoto, comunico all'utente quanti e quali numeri da indovinare ha individuato
+            $('.numbers').append('<h1>Hai individuato ' + result.length + ' numeri</h1>');
+            $('.numbers').append('<h1>Questi sono i numeri che hai individuato: ' + result + '</h1>');
+        }
     }, 30000);
+
 
 // fine document.ready
 });
