@@ -6,13 +6,16 @@
 $(document).ready(function() {
     // predispondo un array vuoto
     var numbers = [];
-    for (var i = 0; i < 5; i++) {
+    while(numbers.length < 5) {
         // genero un numero casuale (compreso, per esempio, tra 1 e 100)
         var randomNumber = getRndInteger(1, 100);
-        // salvo il numero generato nell'array numbers
-        numbers.push(randomNumber);
-        // aggiungo al div con classe "numbers" un h1 contenente il numero generato in modo da visualizzare il numero in pagina
-        $('.numbers').append('<h1>' + randomNumber + '</h1>');
+        // controllo se il numero appena generato è diverso da quelli generati in precedenza
+        if (!numbers.includes(randomNumber)) {
+            // se è diverso da quelli generati in precedenza, salvo il numero generato nell'array numbers
+            numbers.push(randomNumber);
+            // aggiungo al div con classe "numbers" un h1 contenente il numero generato in modo da visualizzare il numero in pagina
+            $('.numbers').append('<h1>' + randomNumber + '</h1>');
+        }
     }
     console.log(numbers);
 
@@ -34,32 +37,25 @@ $(document).ready(function() {
     // inoltre, passati i 30 secondi, chiedo all'utente di inserire uno alla volta i numeri precedentemente visualizzati in pagina
     setTimeout(function() {
         // predispondo un array vuoto
-        var userNumbers = [];
+        var guessedNumbers = [];
         for (var i = 0; i < 5; i++) {
             // chiedo all'utente di inserire un numero
             var userNumber = parseInt(prompt('Inserisci un numero'));
-            // ogni numero inserito dall'utente viene salvato nell'array userNumbers
-            userNumbers.push(userNumber);
-        }
-        console.log(userNumbers);
-        // predispongo un array vuoto
-        var result = [];
-
-        // per ogni numero inserito dall'utente, controllo se era uno dei numeri visualizzati in pagina
-        for (var i = 0; i < userNumbers.length; i++) {
-            // se il numero corrente è uno di quelli che era visualizzato in pagina, lo salvo nell'array result
-            if (numbers.includes(userNumbers[i])) {
-                result.push(userNumbers[i]);
+            // controllo se il numero inserito dall'utente era uno dei numeri visualizzati in pagina
+            // se lo è, lo salvo nell'array guessedNumbers
+            // tuttavia, evito di salvare nell'array più volte un numero che l'utente ha inserito più volte
+            if (numbers.includes(userNumber) && !guessedNumbers.includes(userNumber)) {
+                guessedNumbers.push(userNumber);
             }
         }
-
-        // controllo se l'array result è vuoto
-        if (!result.length) {
-            $('.numbers').append('<h1>Non hai indovinato nessun numero</h1>');
+        console.log(guessedNumbers);
+        // controllo se l'array guessedNumbers è vuoto
+        if (!guessedNumbers.length) {
+            $('.numbers').append('<h1>Non hai individuato nessun numero</h1>');
         } else {
             // se non è vuoto, comunico all'utente quanti e quali numeri da indovinare ha individuato
-            $('.numbers').append('<h1>Hai individuato ' + result.length + ' numeri</h1>');
-            $('.numbers').append('<h1>Questi sono i numeri che hai individuato: ' + result + '</h1>');
+            $('.numbers').append('<h1>Hai individuato ' + guessedNumbers.length + ' numeri</h1>');
+            $('.numbers').append('<h1>Questi sono i numeri che hai individuato: ' + guessedNumbers + '</h1>');
         }
     }, 30000);
 
