@@ -52,10 +52,16 @@ $(document).ready(function() {
         // controllo se l'array guessedNumbers è vuoto
         if (!guessedNumbers.length) {
             $('.numbers').append('<h1>Non hai individuato nessun numero</h1>');
-        } else {
-            // se non è vuoto, comunico all'utente quanti e quali numeri da indovinare ha individuato
-            $('.numbers').append('<h1>Hai individuato ' + guessedNumbers.length + ' numeri</h1>');
+        } else if (guessedNumbers.length < numbers.length) {
+            // se non è vuoto, però è più corto dell'array numbers, comunico all'utente quanti e quali numeri da indovinare ha individuato
+            $('.numbers').append('<h1>Hai individuato ' + guessedNumbers.length + ' numeri su 5</h1>');
             $('.numbers').append('<h1>Questi sono i numeri che hai individuato: ' + guessedNumbers + '</h1>');
+        } else {
+            // se l'array guessedNumbers è lungo tanto quanto l'array numbers, significa che l'utente ha individuato tutti i numeri che erano presenti in pagina
+            $('.numbers').append('<h1 class="huge red">Complimenti, hai individuato 5 numeri su 5!!!</h1>');
+            setInterval(function(){
+                $('.numbers h1').toggleClass('hidden');
+            }, 500);
         }
     }, 30000);
 
