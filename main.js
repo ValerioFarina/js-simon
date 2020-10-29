@@ -4,11 +4,22 @@
               Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.  */
 
 $(document).ready(function() {
-    // genero un numero casuale (compreso, per esempio, tra 1 e 100)
-    var randomNumber = getRndInteger(1, 100);
-    // visualizzo il numero generato tramite un alert
-    alert(randomNumber);
+    // predispongo un array vuoto
+    var numbers = [];
+    for (var i = 0; i < 5; i++) {
+        // genero un numero casuale (compreso, per esempio, tra 1 e 100)
+        var randomNumber = getRndInteger(1, 100);
+        // salvo il numero generato nell'array numbers
+        numbers.push(randomNumber)
+    }
+    // visualizzo tramite un alert la lista dei numeri generati
+    alert(numbers);
+
 });
+
+
+// visualizzo il numero generato tramite un alert
+// alert(randomNumber);
 
 
 
