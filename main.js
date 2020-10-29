@@ -15,13 +15,36 @@ $(document).ready(function() {
         $('.numbers').append('<h1>' + randomNumber + '</h1>');
     }
     console.log(numbers);
-    // imposto un timer di 30 secondi
+
+    // imposto un conto alla rovescia che parte da 30 e decrementa di 1 ogni secondo che passa
+    // il passare dei secondi viene mostrato all'interno del div con classe "timer"
+    var seconds = 30;
+    $('.timer .seconds').text(seconds);
+    var timer = setInterval(function() {
+        seconds--;
+        $('.timer .seconds').text(seconds);
+    }, 1000);
+
+    // dopo 30 secondi, blocco il conto a rovescia del timer e cancello i numeri visualizzati in pagina
     setTimeout(function() {
-        // cancello i numeri visualizzati in pagina
+        clearInterval(timer);
         $('.numbers').empty();
     }, 30000);
 
+    // inoltre, passati i 30 secondi, chiedo all'utente di inserire uno alla volta i numeri precedentemente visualizzati in pagina
+    setTimeout(function() {
+        // predispondo un array vuoto
+        var userNumbers = [];
+        for (var i = 0; i < 5; i++) {
+            // chiedo all'utente di inserire un numero
+            var userNumber = parseInt(prompt('Inserisci un numero'));
+            // ogni numero inserito dall'utente viene salvato nell'array userNumbers
+            userNumbers.push(userNumber);
+        }
+        console.log(userNumbers);
+    }, 30000);
 
+// fine document.ready
 });
 
 
